@@ -21,6 +21,10 @@ mod select_statement;
 pub mod where_clause;
 pub mod insert_statement;
 pub mod update_statement;
+mod union_query;
+mod union_all_query;
+mod intersect_query;
+mod except_query;
 
 pub use self::bind_collector::BindCollector;
 pub use self::query_id::QueryId;
@@ -30,6 +34,14 @@ pub use self::select_statement::{SelectStatement, BoxedSelectStatement};
 pub use self::update_statement::{IncompleteUpdateStatement, AsChangeset, Changeset, UpdateTarget};
 #[doc(inline)]
 pub use self::insert_statement::IncompleteInsertStatement;
+#[doc(inline)]
+pub use self::union_query::UnionQuery;
+#[doc(inline)]
+pub use self::union_all_query::UnionAllQuery;
+#[doc(inline)]
+pub use self::intersect_query::IntersectQuery;
+#[doc(inline)]
+pub use self::except_query::ExceptQuery;
 
 use std::error::Error;
 
@@ -140,3 +152,6 @@ impl<T: Query> AsQuery for T {
         self
     }
 }
+
+#[doc(hidden)]
+pub trait CombinableQuery: Query {}
